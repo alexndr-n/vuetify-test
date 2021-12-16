@@ -64,6 +64,7 @@ export default Vue.extend({
           this.formData.email,
           this.formData.password
         )
+        this.$route.push('/vacancies')
       } catch (e) {
         alert(e)
       }
