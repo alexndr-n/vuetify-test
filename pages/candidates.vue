@@ -31,9 +31,16 @@
             ></v-text-field>
             <v-text-field
               v-model="form.email"
-              label="Name"
+              label="Email"
               required
             ></v-text-field>
+            <v-select
+            :items="vacancies"
+            item-text="name"
+            item-value="id"
+            v-model="form.vacancy_id"
+            label="Vacancy"
+            ></v-select>
           </v-form>
         </v-card-text>
 
@@ -67,6 +74,11 @@
             <v-text-field
               v-model="selected.name"
               label="Name"
+              required
+            ></v-text-field>
+            <v-text-field
+              v-model="selected.email"
+              label="Email"
               required
             ></v-text-field>
           </v-form>
@@ -159,8 +171,9 @@ export default {
         name: null,
         opened_at: null,
         email: null,
-        vacancy_id: '497003092253' + Math.random() * 1000
-      }
+        vacancy_id: null,
+      },
+      vacancies: [],
     };
   },
   mounted(){
@@ -168,7 +181,6 @@ export default {
     this.form.opened_at = date.toISOString
   },
   async fetch() {
-    console.log(this.$store.state.authUser.token)
     const candidates = await this.$axios.$get(
       "https://openvacancy-dot-sandbox-opsy.uc.r.appspot.com/api/candidates",
       {
@@ -179,6 +191,16 @@ export default {
       }
     );
     this.candidates = candidates.data;
+    const vacancies = await this.$axios.$get(
+      "https://openvacancy-dot-sandbox-opsy.uc.r.appspot.com/api/vacancies",
+      {
+        headers: {
+          Authorization: `Bearer ${this.$store.state.authUser.token}`,
+          accept: "application/json",
+        },
+      }
+    );
+    this.vacancies = vacancies.data;
   },
   methods: {
     async createcandidate(){

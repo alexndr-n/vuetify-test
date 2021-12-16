@@ -160,7 +160,6 @@ export default {
     this.form.opened_at = date.toISOString
   },
   async fetch() {
-    console.log(this.$store.state.authUser.token)
     const vacancies = await this.$axios.$get(
       "https://openvacancy-dot-sandbox-opsy.uc.r.appspot.com/api/vacancies",
       {

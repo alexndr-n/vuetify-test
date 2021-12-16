@@ -2,34 +2,34 @@
   <div>
     <form v-if="!isLoggedIn" onsubmit="return false;">
       <div class="mb-4">
-        <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
+        <label class="block text-sm font-bold mb-2" for="email">
           Email
         </label>
         <input
           v-model="formData.email"
-          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          class="border rounded w-full text-white py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
           placeholder="Email"
           type="email"
           autocomplete="username"
         />
       </div>
       <div class="mb-4">
-        <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
+        <label class="block text-sm font-bold mb-2" for="email">
           Password
         </label>
         <input
           v-model="formData.password"
-          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          class="border rounded text-white text-white w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
           placeholder="Password"
           type="password"
           autocomplete="current-password"
         />
       </div>
-      <button @click="signInUser">Sign In</button>
+      <v-btn @click="signInUser" color="success button">Sign In</v-btn>
     </form>
     <div v-else>
       <p>You are logged in with {{ authUser.email }}.</p>
-      <Btn color="primary" outlined @click="logout">Logout</Btn>
+      <v-btn color="primary" outlined @click="logout">Logout</v-btn>
     </div>
   </div>
 </template>
@@ -64,7 +64,6 @@ export default Vue.extend({
           this.formData.email,
           this.formData.password
         )
-        this.$route.push('/vacancies')
       } catch (e) {
         alert(e)
       }
@@ -79,3 +78,10 @@ export default Vue.extend({
   },
 })
 </script>
+
+<style>
+.text-white{
+  color: white !important;
+  border: white solid 1px !important;
+}
+</style>
